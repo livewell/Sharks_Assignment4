@@ -16,20 +16,27 @@ public class AlgorithmTester
       ArrayList<Process> processList = new ArrayList<>();
       for (int i = 0; i < 10; i++)
       {
-         //processList.add(new Process(i, generateSize(), generateDuration(),i, false));
+         processList.add(new Process(i, generateSize(), generateDuration(), 0, false, false));
          System.out.println(processList.get(i).toString());
       }
+      
    }
 
    // Needs ENUM not random numbers.
-//   public static int generateSize()
-//   {
-//      return (int) (rand.nextInt(1000) / 10.0);
-//   }
-//   
-//   public static int generateDuration()
-//   {
-//      return (int) (rand.nextInt(600) / 10.0);
-//   }
+   public static int generateSize()
+   {
+	   int size =  (int)(Math.random()*4);
+       switch(size)
+       {
+       	case 0: return 5;
+       	case 1: return 11;
+       	case 2: return 17;
+       	default: return 31;
+       }
+   }
    
+   public static int generateDuration()
+   {
+      return 1 + (int)(Math.random()*5);
+   }   
 }
