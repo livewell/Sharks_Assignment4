@@ -20,6 +20,9 @@ public class AlgorithmTester
          System.out.println(processList.get(i).toString());
       }
       
+      SwapSimulator s = new SwapSimulator();
+      s.firstFit(processList);
+      
    }
 
    // Needs ENUM not random numbers.
