@@ -14,32 +14,35 @@ public class Process implements Comparable<Process>
    float duration;
    int position;
    boolean started;
+   boolean hole;
 
-   /**
+
+
+/**
     * @param id
     * @param size
     * @param duration
     * @param position
     * @param started
     */
-   public Process(int id, int size, float duration, int position, boolean started)
+   public Process(int id, int size, float duration, int position, boolean started, boolean hole)
    {
       this.id = id;
       this.size = size;
       this.duration = duration;
       this.position = position;
       this.started = started;
+      this.hole = hole;
    }
 
    public Process()
    {
       this.id = 0;
-      this.size = 0;
+      this.size = 100;
       this.duration = 0;
-      ;
       this.position = 0;
-      ;
       this.started = false;
+      this.hole = true;
    }
 
    /**
@@ -52,7 +55,7 @@ public class Process implements Comparable<Process>
 
    /**
     * @param id
-    *           the id to set
+    *  the id to set
     */
    public void setId(int id)
    {
@@ -125,6 +128,16 @@ public class Process implements Comparable<Process>
    public void setStarted(boolean started)
    {
       this.started = started;
+   }
+   
+   public boolean isHole() 
+   {
+	   return hole;
+   }
+
+   public void setHole(boolean hole) 
+   {
+	   this.hole = hole;
    }
 
    @Override
