@@ -11,7 +11,7 @@ public class Process implements Comparable<Process>
 {
    int id;
    int size;
-   float duration;
+   int duration;
    int position;
    boolean started;
    boolean hole;
@@ -25,7 +25,7 @@ public class Process implements Comparable<Process>
     * @param position
     * @param started
     */
-   public Process(int id, int size, float duration, int position, boolean started, boolean hole)
+   public Process(int id, int size, int duration, int position, boolean started, boolean hole)
    {
       this.id = id;
       this.size = size;
@@ -55,7 +55,7 @@ public class Process implements Comparable<Process>
 
    /**
     * @param id
-    *  the id to set
+    * g the id to set
     */
    public void setId(int id)
    {
@@ -82,7 +82,7 @@ public class Process implements Comparable<Process>
    /**
     * @return the duration
     */
-   public float getDuration()
+   public int getDuration()
    {
       return duration;
    }
@@ -91,7 +91,7 @@ public class Process implements Comparable<Process>
     * @param duration
     *           the duration to set
     */
-   public void setDuration(float duration)
+   public void setDuration(int duration)
    {
       this.duration = duration;
    }
