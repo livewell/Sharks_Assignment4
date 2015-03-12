@@ -11,7 +11,7 @@ public class AlgorithmTester
 
    static Random rand = new Random();
    
-   public static void main(String[] args)
+   public static void main(String[] args) throws InterruptedException
    {
       ArrayList<Process> processList = new ArrayList<>();
       for (int i = 0; i < 10; i++)
@@ -22,10 +22,8 @@ public class AlgorithmTester
       
       SwapSimulator s = new SwapSimulator();
       s.firstFit(processList);
-      
    }
 
-   // Needs ENUM not random numbers.
    public static int generateSize()
    {
 	   int size =  (int)(Math.random()*4);

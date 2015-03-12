@@ -167,7 +167,7 @@ public class Process implements Comparable<Process>
    @Override
    public String toString()
    {
-      return "Process [id=" + id + ", size=" + size + ", duration=" + duration + ", position=" + position + ", started="
+      return "Process [id=" + id + ", size=" + size + "MB, duration=" + duration + "sec, position=" + position + ", started="
             + started + "]";
    }
 
