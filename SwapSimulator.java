@@ -15,8 +15,8 @@ public class SwapSimulator {
 		printMemoryMap();		
 		for(int i=0; i<60; i++)
 		{
+	    	//Below the code should be changed to a loop so that each as many process as possible get pushed into memory////////
 			/// CODE CHANGE/////////
-	    	////// MUST ADD AS MANY PROCESSES AS POSSIBLE////////
 			// Add processes
 	    	Iterator<Process> queueIter = processQueue.iterator();
 	    	if(queueIter.hasNext())
