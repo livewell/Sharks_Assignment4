@@ -14,7 +14,7 @@ public class AlgorithmTester
    public static void main(String[] args) throws InterruptedException
    {
       ArrayList<Process> processList = new ArrayList<>();
-      for (int i = 0; i < 10; i++)
+      for (int i = 0; i < 120; i++)
       {
          processList.add(new Process(i, generateSize(), generateDuration(), 0, false, false));
          System.out.println(processList.get(i).toString());

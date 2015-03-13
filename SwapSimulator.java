@@ -3,20 +3,20 @@ import java.util.*;
 public class SwapSimulator {
 	
 	LinkedList<Process> memory = new LinkedList<Process>();
+	int swapCounter = 0;
 	
 	public SwapSimulator()
 	{
 		memory.add(new Process(0, 100, 0, 0, false, true));
 	}
 	
-	public void firstFit(ArrayList<Process> processQueue)
+	public void firstFit(ArrayList<Process> processQueue) throws InterruptedException
 	{
-		printMemoryMap();
-		long startTime = System.currentTimeMillis();
-		
-		// Loop for 1 minute
-	    while((System.currentTimeMillis()-startTime)<60000)
-	    {
+		printMemoryMap();		
+		for(int i=0; i<60; i++)
+		{
+			/// CODE CHANGE/////////
+	    	////// MUST ADD AS MANY PROCESSES AS POSSIBLE////////
 			// Add processes
 	    	Iterator<Process> queueIter = processQueue.iterator();
 	    	if(queueIter.hasNext())
@@ -27,6 +27,7 @@ public class SwapSimulator {
 	    			// Remove process from queue
 	    			queueIter.remove();
 	    			// Print memory map
+	        		System.out.println("Swap In   [P" + p.id + ", " + p.getSize() + "MB, " + p.getDuration() + "sec]");
 					printMemoryMap();
 				}
 	    		else
@@ -37,6 +38,9 @@ public class SwapSimulator {
 	    			processQueue.add(p);
 	    		}
 	    	}
+	    	////// MUST ADD AS MANY PROCESSES AS POSSIBLE////////
+	    	// Here for debugging purpose
+	    	Thread.sleep(1000);
 				
 			// Decrement processes
 	    	decrementProcess();
@@ -53,7 +57,7 @@ public class SwapSimulator {
             {
             	// Replace the hole with the current process
             	listIterator.set(process);
-            	
+            	swapCounter++;
             	// Split the empty hole in half
             	if(proc.size != process.size)
             	{
@@ -75,13 +79,14 @@ public class SwapSimulator {
         	Process proc = listIterator.next();
 			if(!proc.isHole())
 			{
-				if(proc.getDuration() != 0)
+				if(proc.getDuration() > 0)
 				{
 					proc.setDuration(proc.getDuration() - 1);
 				}
 				else
 				{
 					proc.setHole(true);
+	        		System.out.println("Swap Out   [P" + proc.id + ", " + proc.getSize() + "MB, " + proc.getDuration() + "sec]");
 					printMemoryMap();
 				}
 			}
@@ -91,12 +96,21 @@ public class SwapSimulator {
 	public void printMemoryMap()
 	{
 		ListIterator<Process> listIterator = memory.listIterator();
+		System.out.print("Swaps[" + swapCounter + "]  ");
+        System.out.flush();
+
 		while (listIterator.hasNext()) {
         	Process proc = listIterator.next();
         	if(proc.isHole())
-        		System.out.print(" [Hole | " + proc.getSize() + "MB], ");
+        	{
+        		for(int i=0; i<proc.getSize(); i++)
+            		System.out.print(".");
+        	}
         	else
-        		System.out.print(" [P" + proc.id + " | " + proc.getSize() + "MB | " + proc.getDuration() + "sec ]");
+        	{
+        		for(int i=0; i<proc.getSize(); i++)
+        			System.out.print("["+proc.id+"]");
+        	}
 
 		}
 		System.out.println("\n");
