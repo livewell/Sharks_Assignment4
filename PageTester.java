@@ -7,7 +7,7 @@ public class PageTester {
 		 // Testing the nextPage method
 		 for(int i=0; i< 20; i++)
 		 {
-		   System.out.println(p.getNextPage());
+		   System.out.println("i = " + p.nextPage());
 		 }
 	}
 }
