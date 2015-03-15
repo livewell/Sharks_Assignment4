@@ -47,6 +47,8 @@ public class PageSimulator {
 			if(physicalMemory.contains(pageBlock))
 			{
 				hits++;
+				String memoryMap = printMemoryMap(physicalMemory);
+				System.out.println("Physical Memory = " + memoryMap + "\tHits = " + hits + "\tPaged In = *" + "\tEvicted Page = *");
 			}
 			else
 			{
@@ -54,16 +56,18 @@ public class PageSimulator {
 				{
 					physicalMemory.add(pageBlock);
 					pagedIn = pageBlock;
+					String memoryMap = printMemoryMap(physicalMemory);
+					System.out.println("Physical Memory = " + memoryMap + "\tHits = *" + "\tPaged In = " + pagedIn + "\tEvicted Page = *");
 				}
 				else
 				{
 					evictedPage = physicalMemory.remove();
 					physicalMemory.add(pageBlock);
 					pagedIn = pageBlock;
+					String memoryMap = printMemoryMap(physicalMemory);
+					System.out.println("Physical Memory = " + memoryMap + "\tHits = *" + "\tPaged In = " + pagedIn + "\tEvicted Page = " + evictedPage);
 				}
 			}
-			String memoryMap = printMemoryMap(physicalMemory);
-			System.out.println("Physical Memory = " + memoryMap + "\tHits = " + hits + "\tPaged In = " + pagedIn + "\tEvicted Page = " + evictedPage);
 		}
 	}
 	
@@ -82,5 +86,38 @@ public class PageSimulator {
 	
 	public void randomPick()
 	{
+		LinkedList<Integer> physicalMemory = new LinkedList<Integer>();
+		int hits = 0;
+		int pagedIn = 0;
+		int evictedPage = 0;
+		// Go through 100 page references
+		for(int i=0; i<100; i++)
+		{
+			int pageBlock = nextPage();
+			if(physicalMemory.contains(pageBlock))
+			{
+				hits++;
+				String memoryMap = printMemoryMap(physicalMemory);
+				System.out.println("Physical Memory = " + memoryMap + "\tHits = " + hits + "\tPaged In = *" + "\tEvicted Page = *");
+			}
+			else
+			{
+				if(physicalMemory.size() < 4)
+				{
+					physicalMemory.add(pageBlock);
+					pagedIn = pageBlock;
+					String memoryMap = printMemoryMap(physicalMemory);
+					System.out.println("Physical Memory = " + memoryMap + "\tHits = *" + "\tPaged In = " + pagedIn + "\tEvicted Page = *");
+				}
+				else
+				{
+					evictedPage = physicalMemory.remove((int)(Math.random()*4));
+					physicalMemory.add(pageBlock);
+					pagedIn = pageBlock;
+					String memoryMap = printMemoryMap(physicalMemory);
+					System.out.println("Physical Memory = " + memoryMap + "\tHits = *" + "\tPaged In = " + pagedIn + "\tEvicted Page = " + evictedPage);
+				}
+			}
+		}
 	}
 }
