@@ -3,6 +3,16 @@ import java.util.*;
 public class PageSimulator {
 	
 	static int page = 0;
+	static int[] pageReferences = new int[100];
+
+	public PageSimulator()
+	{
+		// Use the same 100 page references for each algorithm
+		// in order to accurately and fairly compare each algorithm.
+		for(int i=0; i<100; i++)
+			pageReferences[i] = nextPage(); 
+	}
+	
 	public int nextPage()
 	{
 		int[] lor = {-1, 0, 1};
@@ -43,7 +53,7 @@ public class PageSimulator {
 		// Go through 100 page references
 		for(int i=0; i<100; i++)
 		{
-			int pageBlock = nextPage();
+			int pageBlock = pageReferences[i];
 			if(physicalMemory.contains(pageBlock))
 			{
 				hits++;
@@ -93,7 +103,7 @@ public class PageSimulator {
 		// Go through 100 page references
 		for(int i=0; i<100; i++)
 		{
-			int pageBlock = nextPage();
+			int pageBlock = pageReferences[i];
 			if(physicalMemory.contains(pageBlock))
 			{
 				hits++;
