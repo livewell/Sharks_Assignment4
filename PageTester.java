@@ -6,5 +6,7 @@ public class PageTester {
 		 
 		 // Testing the nextPage method
 		 p.fifo();
+		 System.out.println("\n\n");
+		 p.randomPick();
 	}
 }
