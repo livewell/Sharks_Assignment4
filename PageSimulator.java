@@ -5,8 +5,7 @@ public class PageSimulator {
 	static int page = 0;
 	static ArrayList<Page> pageReferences = new ArrayList<Page>();
 	static ArrayList<Page> lruPages, lfuPages, mfuPages;
-
-
+	static Random generator = new Random(System.nanoTime());
 	ArrayList<Page> pages = new ArrayList<Page>();
 
 	public PageSimulator()
@@ -26,20 +25,23 @@ public class PageSimulator {
 	public int nextPage()
 	{
 		int[] lor = {-1, 0, 1};
-		int r =  (int)(Math.random()*10);
+		//int r =  (int)(Math.random()*10);
+		int r = generator.nextInt(10);
 		if(r >= 0 && r < 7)
 		{
 			// Generate a random value r from 0 to 2
 			// Place r in the locality of reference array to get value l: -1 , 0, or 1
 			// Add l onto the last page reference i and modulo 9 the result to get a value within 0 - 9
-			page = (page + lor[(int)(Math.random()*3)]) % 10;
+			//page = (page + lor[(int)(Math.random()*3)]) % 10;
+			page = (page + lor[generator.nextInt(3)]) % 10;
 			if(page<0)
 				page = 9;
 		}
 		if(r >= 7 && r<= 9)
 		{
 			//Generate values 2-8 inclusive
-			page = (int)(2 + Math.random()*7); 
+			//page = (int)(2 + Math.random()*7); 
+			page = (2 + generator.nextInt(7)); 
 		}
 		return page;
 	}
