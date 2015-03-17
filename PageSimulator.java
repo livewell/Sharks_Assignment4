@@ -4,6 +4,9 @@ public class PageSimulator {
 	
 	static int page = 0;
 	static ArrayList<Page> pageReferences = new ArrayList<Page>();
+	static ArrayList<Page> lruPages, lfuPages, mfuPages;
+
+
 	ArrayList<Page> pages = new ArrayList<Page>();
 
 	public PageSimulator()
@@ -14,7 +17,10 @@ public class PageSimulator {
 		// in order to accurately and fairly compare each algorithm.
 		for(int i=0; i<100; i++)
 			pageReferences.add(pages.get(nextPage()));
-
+		
+		lruPages = (ArrayList<Page>)pageReferences.clone();
+		lfuPages = (ArrayList<Page>)pageReferences.clone();
+		mfuPages = (ArrayList<Page>)pageReferences.clone();
 	}
 	
 	public int nextPage()
@@ -48,7 +54,7 @@ public class PageSimulator {
 		return memoryMap;
 	}
 	
-	public void fifo()
+	public double fifo()
 	{
 		LinkedList<Page> physicalMemory = new LinkedList<Page>();
 		int hits = 0;
@@ -85,11 +91,11 @@ public class PageSimulator {
 			}
 		}
 		double hitRatio = (double)(hits/100.0);
-		System.out.printf("\n Hit Ratio = %.2f\n", hitRatio);
+		return hitRatio;
 	}
 	
 	
-	public void lru()
+	public double lru()
 	{
 		LinkedList<Page> physicalMemory = new LinkedList<Page>();
 		int hits = 0;
@@ -98,7 +104,7 @@ public class PageSimulator {
 		// Go through 100 page references
 		for(int i=0; i<100; i++)
 		{
-			Page pageBlock = pageReferences.get(i);
+			Page pageBlock = lruPages.get(i);
 			if(physicalMemory.contains(pageBlock))
 			{
 				hits++;
@@ -144,18 +150,130 @@ public class PageSimulator {
 			}
 		}
 		double hitRatio = (double)(hits/100.0);
-		System.out.printf("\n Hit Ratio = %.2f\n", hitRatio);
+		return hitRatio;
 	}
 	
-	public void lfu()
+	public double lfu()
 	{
+		LinkedList<Page> physicalMemory = new LinkedList<Page>();
+		int hits = 0;
+		int pagedIn = 0;
+		int evictedPage = 0;
+		// Go through 100 page references
+		for(int i=0; i<100; i++)
+		{
+			Page pageBlock = lfuPages.get(i);
+			if(physicalMemory.contains(pageBlock))
+			{
+				hits++;
+				pageBlock.updateCounter();
+				String memoryMap = printMemoryMap(physicalMemory);
+				System.out.println("Physical Memory = " + memoryMap + "\tHits = " + hits + "\tPaged In = *" + "\tEvicted Page = *" + "\tReferenced Page = " + pageBlock.getAddress());
+			}
+			else
+			{
+				if(physicalMemory.size() < 4)
+				{
+					pageBlock.updateCounter();
+					physicalMemory.add(pageBlock);
+					pagedIn = pageBlock.getAddress();
+					String memoryMap = printMemoryMap(physicalMemory);
+					System.out.println("Physical Memory = " + memoryMap + "\tHits = *" + "\tPaged In = " + pagedIn + "\tEvicted Page = *");
+				}
+				else
+				{
+					// LFU Eviction
+					int index=0;
+					int removeIndex = 0;
+					evictedPage = 100;
+					ListIterator<Page> p = physicalMemory.listIterator();
+					while (p.hasNext())
+					{
+						index = p.nextIndex();
+						Page currentPage = p.next();
+						int leastFrequent = currentPage.getCounter();
+						if(evictedPage > leastFrequent)
+						{
+							evictedPage = leastFrequent;
+							removeIndex = index;
+						}
+					}
+					Page e = physicalMemory.remove(removeIndex);
+					evictedPage = e.getAddress();
+					e.setCounter(0);
+					pageBlock.updateCounter();
+					physicalMemory.add(pageBlock);
+					pagedIn = pageBlock.getAddress();
+					String memoryMap = printMemoryMap(physicalMemory);
+					System.out.println("Physical Memory = " + memoryMap + "\tHits = *" + "\tPaged In = " + pagedIn + "\tEvicted Page = " + evictedPage);
+				}
+			}
+		}
+		double hitRatio = (double)(hits/100.0);
+		return hitRatio;
 	}
 	
-	public void mfu()
+	public Double mfu()
 	{
+		LinkedList<Page> physicalMemory = new LinkedList<Page>();
+		int hits = 0;
+		int pagedIn = 0;
+		int evictedPage = 0;
+		// Go through 100 page references
+		for(int i=0; i<100; i++)
+		{
+			Page pageBlock = mfuPages.get(i);
+			if(physicalMemory.contains(pageBlock))
+			{
+				hits++;
+				pageBlock.updateCounter();
+				String memoryMap = printMemoryMap(physicalMemory);
+				System.out.println("Physical Memory = " + memoryMap + "\tHits = " + hits + "\tPaged In = *" + "\tEvicted Page = *" + "\tReferenced Page = " + pageBlock.getAddress());
+			}
+			else
+			{
+				if(physicalMemory.size() < 4)
+				{
+					pageBlock.updateCounter();
+					physicalMemory.add(pageBlock);
+					pagedIn = pageBlock.getAddress();
+					String memoryMap = printMemoryMap(physicalMemory);
+					System.out.println("Physical Memory = " + memoryMap + "\tHits = *" + "\tPaged In = " + pagedIn + "\tEvicted Page = *");
+				}
+				else
+				{
+					// MFU Eviction
+					int index=0;
+					int removeIndex = 0;
+					evictedPage = -1;
+					ListIterator<Page> p = physicalMemory.listIterator();
+					while (p.hasNext())
+					{
+						index = p.nextIndex();
+						Page currentPage = p.next();
+						int mostFrequent = currentPage.getCounter();
+						if(evictedPage < mostFrequent)
+						{
+							evictedPage = mostFrequent;
+							removeIndex = index;
+						}
+					}
+					Page e = physicalMemory.remove(removeIndex);
+					evictedPage = e.getAddress();
+					e.setCounter(0);
+					pageBlock.updateCounter();
+					physicalMemory.add(pageBlock);
+					pagedIn = pageBlock.getAddress();
+					String memoryMap = printMemoryMap(physicalMemory);
+					System.out.println("Physical Memory = " + memoryMap + "\tHits = *" + "\tPaged In = " + pagedIn + "\tEvicted Page = " + evictedPage);
+				}
+			}
+		}
+		double hitRatio = (double)(hits/100.0);
+		return hitRatio;
 	}
 	
-	public void randomPick()
+	public double randomPick()
 	{
 		LinkedList<Page> physicalMemory = new LinkedList<Page>();
 		int hits = 0;
@@ -191,7 +309,6 @@ public class PageSimulator {
 			}
 		}
 		double hitRatio = (double)(hits/100.0);
-		System.out.printf("\n Hit Ratio = %.2f\n", hitRatio);
-
+		return hitRatio;
 	}
 }
