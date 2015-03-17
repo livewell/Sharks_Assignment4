@@ -7,6 +7,7 @@ public class Page {
 	public Page(int address)
 	{
 		this.address = address;
+		this.counter = 0;
 	}
 
 	public int getAddress() {
@@ -15,6 +16,10 @@ public class Page {
 
 	public void setAddress(int address) {
 		this.address = address;
+	}
+	
+	public void updateCounter() {
+		counter++;
 	}
 
 	public int getCounter() {
