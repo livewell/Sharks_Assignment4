@@ -9,52 +9,56 @@
  */
 public class Process implements Comparable<Process>
 {
-   int id;
+  // int id;
+   String id;
    int size;
-   float duration;
+   int duration;
    int position;
    boolean started;
+   boolean hole;
 
-   /**
+
+
+/**
     * @param id
     * @param size
     * @param duration
     * @param position
     * @param started
     */
-   public Process(int id, int size, float duration, int position, boolean started)
+   public Process(String id, int size, int duration, int position, boolean started, boolean hole)
    {
       this.id = id;
       this.size = size;
       this.duration = duration;
       this.position = position;
       this.started = started;
+      this.hole = hole;
    }
 
    public Process()
    {
-      this.id = 0;
-      this.size = 0;
+      this.id = null;
+      this.size = 100;
       this.duration = 0;
-      ;
       this.position = 0;
-      ;
       this.started = false;
+      this.hole = true;
    }
 
    /**
     * @return the id
     */
-   public int getId()
+   public String getId()
    {
       return id;
    }
 
    /**
     * @param id
-    *           the id to set
+    * g the id to set
     */
-   public void setId(int id)
+   public void setId(String id)
    {
       this.id = id;
    }
@@ -79,7 +83,7 @@ public class Process implements Comparable<Process>
    /**
     * @return the duration
     */
-   public float getDuration()
+   public int getDuration()
    {
       return duration;
    }
@@ -88,7 +92,7 @@ public class Process implements Comparable<Process>
     * @param duration
     *           the duration to set
     */
-   public void setDuration(float duration)
+   public void setDuration(int duration)
    {
       this.duration = duration;
    }
@@ -126,6 +130,16 @@ public class Process implements Comparable<Process>
    {
       this.started = started;
    }
+   
+   public boolean isHole() 
+   {
+	   return hole;
+   }
+
+   public void setHole(boolean hole) 
+   {
+	   this.hole = hole;
+   }
 
    @Override
    public int compareTo(Process o)
@@ -154,7 +168,7 @@ public class Process implements Comparable<Process>
    @Override
    public String toString()
    {
-      return "Process [id=" + id + ", size=" + size + ", duration=" + duration + ", position=" + position + ", started="
+      return "Process [id=" + id + ", size=" + size + "MB, duration=" + duration + "sec, position=" + position + ", started="
             + started + "]";
    }
 
