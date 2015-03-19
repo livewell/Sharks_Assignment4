@@ -1,9 +1,6 @@
-import java.util.Random;
-
-
 public class PageTester {
 
-	public static void main(String[] args) throws InterruptedException {
+	public static void main(String[] args) {
 		int limit = 5;
 		double fifo, lru, lfu, mfu, randomPick;
 		double avFifo=0, avLru=0, avLfu=0, avMfu=0, avRandomPick=0;
@@ -42,7 +39,6 @@ public class PageTester {
 			 avLfu += lfu; 
 			 avMfu += mfu; 
 			 avRandomPick += randomPick;
-			 Thread.sleep(1000);
 		}
 		results.append("\t--------------------------------------\n");
 		results.append("Average\t");
