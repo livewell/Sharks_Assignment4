@@ -164,7 +164,7 @@ public class PageSimulator {
 		return hitRatio;
 	}
 	
-	public double lfu()
+	public double lfu(boolean resetCounter)
 	{
 		LinkedList<Page> physicalMemory = new LinkedList<Page>();
 		int hits = 0;
@@ -211,7 +211,7 @@ public class PageSimulator {
 					}
 					Page e = physicalMemory.remove(removeIndex);
 					evictedPage = e.getAddress();
-					//e.setCounter(0);
+					if(resetCounter) e.setCounter(0);
 					pageBlock.updateCounter();
 					physicalMemory.add(pageBlock);
 					pagedIn = pageBlock.getAddress();
@@ -225,7 +225,7 @@ public class PageSimulator {
 		return hitRatio;
 	}
 	
-	public Double mfu()
+	public double mfu(boolean resetCounter)
 	{
 		LinkedList<Page> physicalMemory = new LinkedList<Page>();
 		int hits = 0;
@@ -272,7 +272,7 @@ public class PageSimulator {
 					}
 					Page e = physicalMemory.remove(removeIndex);
 					evictedPage = e.getAddress();
-					//e.setCounter(0);
+					if(resetCounter) e.setCounter(0);
 					pageBlock.updateCounter();
 					physicalMemory.add(pageBlock);
 					pagedIn = pageBlock.getAddress();
