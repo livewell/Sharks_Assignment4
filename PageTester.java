@@ -1,7 +1,7 @@
 public class PageTester {
 
 	public static void main(String[] args) {
-		int limit = 100;
+		int limit = 5;
 		double fifo, lru, lfu, lfur, mfu, mfur, randomPick;
 		double avFifo=0, avLru=0, avLfu=0, avLfuc=0, avMfu=0, avMfur=0, avRandomPick=0;
 		StringBuilder results = new StringBuilder();
