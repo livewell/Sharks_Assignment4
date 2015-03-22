@@ -18,17 +18,17 @@ public class Main {
 			}
 		}
 	  	System.out.println(Npro++);
-	  	//FirstFistWrapping FF = new FirstFistWrapping();
-       // FF.Simulate(processList,Npro++);
+	  	FirstFitWrapping FF = new FirstFitWrapping();
+        FF.Simulate(processList,Npro++);
         
-	  //	NextFitWrapping NF = new NextFitWrapping();
-      //  NF.Simulate(processList,Npro++);
+	  	//NextFitWrapping NF = new NextFitWrapping();
+	  	//NF.Simulate(processList,Npro++);
         
-      //  BestFitWrapping BF = new BestFitWrapping();
-      //  BF.Simulate(processList,Npro++);
+	  	//BestFitWrapping BF = new BestFitWrapping();
+	  	//BF.Simulate(processList,Npro++);
         
-        WorstFitWrapping WF = new WorstFitWrapping();
-        WF.Simulate(processList,Npro++);
+        //WorstFitWrapping WF = new WorstFitWrapping();
+        //WF.Simulate(processList,Npro++);
 	}
 	
 	

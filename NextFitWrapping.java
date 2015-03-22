@@ -36,7 +36,7 @@ public class NextFitWrapping
 								{
 					    			//System.out.println("inADD");
 					    			if(first==0)
-					    				System.out.print("Swapp in: ");
+					    				System.out.print("Swap in: ");
 					    			processQueue.get(a).setStarted(true);
 					    			System.out.print("["+processQueue.get(a).id + ", " + processQueue.get(a).getSize() + "MB, " + processQueue.get(a).getDuration() + "sec]");
 					    			count++; 
@@ -55,7 +55,7 @@ public class NextFitWrapping
 			    	if(removeFinishedProcess())
 				    	printMemoryMap();
 			    	
-			    	if(i==29)// do compasion
+			    	/*if(i==30)// do compasion
 			    	{    		
 			    		
 			    		if(memoryCompaction()==true)
@@ -63,7 +63,7 @@ public class NextFitWrapping
 			    			printMemoryMap();	
 			    			//System.out.println("COM");
 			    		}
-			    	}
+			    	}*/
 			    	
 			    }
 				System.out.println("The number of Process Wrapped in and out is: " + count);
